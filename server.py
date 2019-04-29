@@ -42,23 +42,114 @@ class Handler(BaseHTTPRequestHandler):
             file = open("index.html", "r")
             contents = file.read()
 
+        # When we write the endpoint "/listSpecies" it opens the Response.html and add the list of
+        # species to the contents
+        elif action == "/listSpecies":
+            if self.input_value():
+                list_of_species = list_species(self.input_value())
+            else:
+                list_of_species = list_species()
+            file = open("Response.html", "r")
+            contents = file.read()
+            contents += "<h1>List of species:</h1><ul>"
+            for item in list_of_species:
+                contents += "<li>" + item + "</li>"
+            contents += "</ul></body></html>"
+
+        # When we write the endpoint "/karyotype" it opens the Response.html and add the list of chromosomes
+        elif action == "/karyotype":
+            file = open("Response.html", "r")
+            contents = file.read()
+            if self.input_value():
+                karyot = karyotype(self.input_value())
+                contents += "Karyotype of " + self.input_value() + ":<ul>"
+                if len(karyot) == 0:
+                    contents += "<p><strong>None</strong></p>"
+                else:
+                    for item in karyot:
+                        contents += "<li>" + item + "</li>"
+            contents += "</body></html>"
+
+        # When we write the endpoint /chromosomeLength it opens the Response.html and add the name of the specie,
+        # the name of the chromosome and its length
+        elif action == "/chromosomeLength":
+            file = open("Response.html", "r")
+            contents = file.read()
+            if self.input_value():
+                specie, chromo = self.input_value()
+                contents += "The length of chromosome " + chromo + " of " + specie + " is: "
+                contents += "<strong>" + str(chromosomeLength(specie, chromo)) + "</strong>"
+            contents += "</body></html>"
         else:
             # It shows the ERROR page
             file = open("Error.html", "r")
             contents = file.read()
 
-        self.send_response(200)  # -- Status line: OK!
+        self.send_response(200)  # Everything is OK!
         self.send_header('Content-Type', 'text/html')
         self.send_header('Content-Length', len(str.encode(contents)))
         self.end_headers()
         self.wfile.write(str.encode(contents))
 
 
-# -- Open the socket server
+def list_species(limit=199):
+    server = "https://rest.ensembl.org"
+    ext = "/info/species?"
+    request = requests.get(server + ext, headers={"Content-Type": "application/json"})
+    if not request.ok:
+        request.raise_for_status()
+        sys.exit()
+    decoded = request.json()
+    results = decoded.get('species')
+    species_list = []
+    if not limit:
+        n = len(results)
+    else:
+        n = int(limit)
+    i = 1
+    if results:
+        for specie in results:
+            name = specie['name']
+            species_list.append(name)
+            if i < n:
+                i += 1
+            else:
+                break
+    return species_list
+
+
+def karyotype(specie):
+    server = "http://rest.ensembl.org"
+    ext = "/info/assembly/" + specie
+    request = requests.get(server + ext, headers={"Content-Type": "application/json"})
+    if not request.ok:
+        request.raise_for_status()
+        sys.exit()
+    decoded = request.json()
+    karyot_list = decoded['karyotype']
+    return karyot_list
+
+
+def chromosomeLength(specie, chromo):
+    server = "http://rest.ensembl.org"
+    ext = "/info/assembly/" + specie
+    request = requests.get(server + ext, headers={"Content-Type": "application/json"})
+    if not request.ok:
+        request.raise_for_status()
+        sys.exit()
+    decoded = request.json()
+    results = decoded.get('top_level_region')
+    if results:
+        for item in results:
+            if item['name'] == chromo:
+                return item['length']
+        return "Not found!"
+
+
+# Open the socket server
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)
-    # -- Main loop: Attend the client. Whenever there is a new
-    # -- clint, the handler is called
+    # Main loop: Attending the client. If there is a new client, the handler is called
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
