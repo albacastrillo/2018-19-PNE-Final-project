@@ -56,3 +56,191 @@ http://localhost:8000/chromosomeLength?specie=mouse&chromo=18
     <br>
 The length of chromosome 18 of mouse is: <strong>90702639</strong></body></html>
 
+
+* Testing other examples*
+
+http://localhost:8000/listSpecies?limit=13
+------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+<h1>List of species:</h1><ul><li>mus_musculus</li><li>homo_sapiens</li><li>cavia_porcellus</li><li>mus_musculus_cbaj</li><li>amphilophus_citrinellus</li><li>anolis_carolinensis</li><li>cebus_capucinus</li><li>labrus_bergylta</li><li>panthera_pardus</li><li>takifugu_rubripes</li><li>rhinopithecus_bieti</li><li>mastacembelus_armatus</li><li>lepidothrix_coronata</li></ul></body></html>
+
+
+http://localhost:8000/karyotype?specie=dog
+------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+Karyotype of dog:<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>X</li><li>MT</li></body></html>
+
+
+http://localhost:8000/chromosomeLength?specie=dog&chromo=7
+----------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+The length of chromosome 7 of dog is: <strong>80974532</strong></body></html>
+
+
+http://localhost:8000/karyotype?specie=RFGTHYJ
+----------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+Karyotype of RFGTHYJ:<ul><li>400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/RFGTHYJ</li></body></html>
+
+
+http://localhost:8000/chromosomeLength?specie=ERTGYH&chromo=
+------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+The length of chromosome  of ERTGYH is: <strong>('400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/ERTGYH',)</strong></body></html>
+
+
+http://localhost:8000/chromosomeLength?specie=GH&chromo=DFG
+-----------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+The length of chromosome DFG of GH is: <strong>('400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/GH',)</strong></body></html>
+
+
+http://localhost:8000/chromosomeLength?specie=TIGER&chromo=4
+------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+The length of chromosome 4 of TIGER is: <strong>None</strong></body></html>
+
+
+http://localhost:8000/
+----------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>FINAL PROJECT</title>
+  </head>
+  <body style="background-color: pink;">
+    <h1>FINAL PROJECT:</h1>
+    <form action="listSpecies" method="get">
+      LIST OF SPECIES <br>
+      Limit of species to show:
+      <input type="number" name="limit" max="199" min="1">
+      <input type="submit" value="SEND">
+      <br><br>
+      </form>
+    <form action="karyotype" method="get">
+      KARYOTYPE <br>
+      Name of a specie:
+      <input type="text" name="specie">
+      <input type="submit" value="SEND">
+      <br><br>
+      </form>
+    <form action="chromosomeLength" method="get">
+      CHROMOSOME LENGTH <br>
+      Name of a specie:
+      <input type="text" name="specie"> <br>
+      Chromosome number:
+      <input type="text" name="chromo">
+      <input type="submit" value="SEND">
+      <br><br>
+      </form>
+    <form action="geneSeq" method="get">
+      HUMAN GENE SEQUENCE <br>
+      Enter gene:
+      <input type="text" name="gene">
+      <input type="submit" value="SEND">
+      </form>
+      <br>
+    <form action="geneInfo" method="get">
+      HUMAN GENE INFORMATION <br>
+      Enter gene:
+      <input type="text" name="gene">
+      <input type="submit" value="SEND">
+      </form>
+      <br>
+    <form action="geneCalc" method="get">
+      HUMAN GENE BASES INFORMATION <br>
+      Enter gene:
+      <input type="text" name="gene">
+      <input type="submit" value="SEND">
+      </form>
+      <br>
+    <form action="geneList" method="get">
+      NAMES OF THE GENES LOCATED IN A CHROMOSOME <br>
+      Enter chromosome:
+      <input type="text" name="chromo"><br>
+      Enter start:
+      <input type="number" name="start"><br>
+      Enter end:
+      <input type="number" name="end">
+      <input type="submit" value="SEND">
+    </form>
+    <br>
+  </body>
+</html>
+
+
+http://localhost:8000/gvds
+--------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final Project</title>
+  </head>
+  <body style="background-color: red;">
+    <h1>ERROR</h1>
+    <h3>Not found!</h3>
+    <br>
+    <br>
+    <a href="/">[Home page]</a>
+  </body>
+</html>
+
+
