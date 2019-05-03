@@ -90,7 +90,9 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     for item in karyot:
                         contents += "<li>" + item + "</li>"
-            contents += "</body></html>"
+                contents += "</body></html>"
+            else:
+                contents += "</body>Please, introduce a specie</html>"
 
         # When we write the endpoint "/chromosomeLength" it opens the Response.html and add the name of the specie,
         # the name of the chromosome and its length
@@ -99,10 +101,12 @@ class Handler(BaseHTTPRequestHandler):
             contents = file.read()
             if self.input_value():
                 specie, chromo = self.input_value()
-                contents += "The length of chromosome " + chromo + " of " + specie + " is: "
-                contents += "<strong>" + str(self.chromosomeLength(specie, chromo)) + "</strong>"
-            contents += "</body></html>"
-
+                if not specie or not chromo:
+                    contents += "</body>Please, introduce a specie and a chromosome</html>"
+                else:
+                    contents += "The length of chromosome " + chromo + " of " + specie + " is: "
+                    contents += "<strong>" + str(self.chromosomeLength(specie, chromo)) + "</strong>"
+                    contents += "</body></html>"
         # When we write the endpoint "/genSeq" it opens the Response.html and add the sequence of a given human gene
         elif action == "/geneSeq":
             file = open("Response.html", "r")
@@ -113,7 +117,9 @@ class Handler(BaseHTTPRequestHandler):
                 seq = self.geneSeq(gene)
                 contents += "<br><div style=\"overflow-wrap: break-word;\">"
                 contents += "<strong>" + str(seq) + "</strong></div>"
-            contents += "</body></html>"
+                contents += "</body></html>"
+            else:
+                contents += "</body>Please, introduce a gene</html>"
 
         # When we write the endpoint "/genInfo" it opens the Response.html and add information about a human gene:
         # start, end, Length, id and Chromosome
@@ -124,12 +130,18 @@ class Handler(BaseHTTPRequestHandler):
                 gene = self.input_value()
                 contents += "<h2>Information about human gene " + gene + ":</h2>"
                 gene_info = self.geneInfo(gene)
-                contents += "<p> ID: " + gene_info['id'] + "</p>"
-                contents += "<p> Start: " + gene_info['start'] + "</p>"
-                contents += "<p> End: " + gene_info['end'] + "</p>"
-                contents += "<p> Length: " + gene_info['length'] + "</p>"
-                contents += "<p> Chromosome: " + gene_info['chromo'] + "</p>"
-            contents += "</body></html>"
+                try:
+                    contents += "<p> ID: " + gene_info['id'] + "</p>"
+                    contents += "<p> Start: " + gene_info['start'] + "</p>"
+                    contents += "<p> End: " + gene_info['end'] + "</p>"
+                    contents += "<p> Length: " + gene_info['length'] + "</p>"
+                    contents += "<p> Chromosome: " + gene_info['chromo'] + "</p>"
+                    contents += "</body></html>"
+                except TypeError:
+                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This gene is incorrect. Please, " \
+                               "introduce a new one.</html>"
+            else:
+                contents += "</body>Please, introduce a gene</html>"
 
         # When we write the endpoint "/genCalc" it opens the Response.html and add total length and the
         # percentage of all its bases
@@ -140,19 +152,25 @@ class Handler(BaseHTTPRequestHandler):
                 gene = self.input_value()
                 contents += "<h2>Information about human gene bases " + gene + " bases:</h2>"
                 bases = self.geneCalc(gene)
-                contents += "<h4>Number of bases:</h4><ul>"
-                contents += "<li> A: " + bases['base_a'] + "</li>"
-                contents += "<li> C: " + bases['base_c'] + "</li>"
-                contents += "<li> G: " + bases['base_g'] + "</li>"
-                contents += "<li> T: " + bases['base_t'] + "</li></ul>"
-                contents += "<h4>Percentage of bases:</h4><ul>"
-                contents += "<li> A: " + bases['perc_a'] + "</li>"
-                contents += "<li> C: " + bases['perc_c'] + "</li>"
-                contents += "<li> G: " + bases['perc_g'] + "</li>"
-                contents += "<li> T: " + bases['perc_t'] + "</li></ul>"
-            contents += "</body></html>"
+                try:
+                    contents += "<h4>Number of bases:</h4><ul>"
+                    contents += "<li> A: " + bases['base_a'] + "</li>"
+                    contents += "<li> C: " + bases['base_c'] + "</li>"
+                    contents += "<li> G: " + bases['base_g'] + "</li>"
+                    contents += "<li> T: " + bases['base_t'] + "</li></ul>"
+                    contents += "<h4>Percentage of bases:</h4><ul>"
+                    contents += "<li> A: " + bases['perc_a'] + "</li>"
+                    contents += "<li> C: " + bases['perc_c'] + "</li>"
+                    contents += "<li> G: " + bases['perc_g'] + "</li>"
+                    contents += "<li> T: " + bases['perc_t'] + "</li></ul>"
+                    contents += "</body></html>"
+                except TypeError:
+                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This gene is incorrect. Please, " \
+                                                  "introduce a new one.</html>"
+            else:
+                contents += "</body>Please, introduce a gene</html>"
 
-        # When we write the endpoint "/genCalc" it opens the Response.html and add the names of the genes located
+        # When we write the endpoint "/genList" it opens the Response.html and add the names of the genes located
         # in the chromosome "chromo" from the start to end positions
         elif action == "/geneList":
             file = open("Response.html", "r")
@@ -161,6 +179,7 @@ class Handler(BaseHTTPRequestHandler):
                 chromo, start, end = self.list_input()
                 contents += "<h2>Genes located in the chromosome " + chromo + " </h2>"
                 names = self.geneList(chromo, start, end)
+                print("NAMES:", names)
                 contents += "<ul>"
                 for item in names:
                     contents += "<li>" + item + "</li>"
@@ -320,7 +339,11 @@ class Handler(BaseHTTPRequestHandler):
             if results:
                 for gene in results:
                     name = gene['external_name']
+                    start = str(gene['start'])
+                    end = str(gene['end'])
                     species_list.append(name)
+                    species_list.append(start)
+                    species_list.append(end)
             return species_list
         except Exception as e:
             return e.args
