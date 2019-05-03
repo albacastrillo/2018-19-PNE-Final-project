@@ -59,8 +59,8 @@ The length of chromosome 18 of mouse is: <strong>90702639</strong></body></html>
 
 * Testing other examples*
 
-http://localhost:8000/listSpecies?limit=13
-------------------------------------------
+http://localhost:8000/listSpecies?limit=7
+-----------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -70,11 +70,16 @@ http://localhost:8000/listSpecies?limit=13
   <body>
     <a href="/">[Home page]</a>
     <br>
-<h1>List of species:</h1><ul><li>mus_musculus</li><li>homo_sapiens</li><li>cavia_porcellus</li><li>mus_musculus_cbaj</li><li>amphilophus_citrinellus</li><li>anolis_carolinensis</li><li>cebus_capucinus</li><li>labrus_bergylta</li><li>panthera_pardus</li><li>takifugu_rubripes</li><li>rhinopithecus_bieti</li><li>mastacembelus_armatus</li><li>lepidothrix_coronata</li></ul></body></html>
+<h1>List of species:</h1><ul><li>mus_musculus</li><li>homo_sapiens</li><li>cavia_porcellus</li><li>mus_musculus_cbaj</li><li>amphilophus_citrinellus</li><li>anolis_carolinensis</li><li>cebus_capucinus</li></ul></body></html>
 
 
-http://localhost:8000/karyotype?specie=dog
-------------------------------------------
+http://localhost:8000/karyotype?specie=rftgyu
+---------------------------------------------
+</body> <a href='/'>[Home page]</a> <br><br> This is an incorrect specie. Please, introduce a new one.</html>
+
+
+http://localhost:8000/karyotype?specie=
+---------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -84,11 +89,11 @@ http://localhost:8000/karyotype?specie=dog
   <body>
     <a href="/">[Home page]</a>
     <br>
-Karyotype of dog:<ul><li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li>19</li><li>20</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li><li>29</li><li>30</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li><li>X</li><li>MT</li></body></html>
+</body>Please, introduce a specie</html>
 
 
-http://localhost:8000/chromosomeLength?specie=dog&chromo=7
-----------------------------------------------------------
+http://localhost:8000/chromosomeLength?specie=cat&chromo=
+---------------------------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -98,11 +103,11 @@ http://localhost:8000/chromosomeLength?specie=dog&chromo=7
   <body>
     <a href="/">[Home page]</a>
     <br>
-The length of chromosome 7 of dog is: <strong>80974532</strong></body></html>
+</body>Please, introduce both, a specie and a chromosome</html>
 
 
-http://localhost:8000/karyotype?specie=RFGTHYJ
-----------------------------------------------
+http://localhost:8000/chromosomeLength?specie=fgh&chromo=dfghjk
+---------------------------------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -112,50 +117,7 @@ http://localhost:8000/karyotype?specie=RFGTHYJ
   <body>
     <a href="/">[Home page]</a>
     <br>
-Karyotype of RFGTHYJ:<ul><li>400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/RFGTHYJ</li></body></html>
-
-
-http://localhost:8000/chromosomeLength?specie=ERTGYH&chromo=
-------------------------------------------------------------
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Final project response</title>
-  </head>
-  <body>
-    <a href="/">[Home page]</a>
-    <br>
-The length of chromosome  of ERTGYH is: <strong>('400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/ERTGYH',)</strong></body></html>
-
-
-http://localhost:8000/chromosomeLength?specie=GH&chromo=DFG
------------------------------------------------------------
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Final project response</title>
-  </head>
-  <body>
-    <a href="/">[Home page]</a>
-    <br>
-The length of chromosome DFG of GH is: <strong>('400 Client Error: Bad Request for url: http://rest.ensembl.org/info/assembly/GH',)</strong></body></html>
-
-
-http://localhost:8000/chromosomeLength?specie=TIGER&chromo=4
-------------------------------------------------------------
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Final project response</title>
-  </head>
-  <body>
-    <a href="/">[Home page]</a>
-    <br>
-The length of chromosome 4 of TIGER is: <strong>None</strong></body></html>
-
+The length of chromosome dfghjk of fgh is: <strong>None</strong></body></html>
 
 http://localhost:8000/
 ----------------------
@@ -226,21 +188,17 @@ http://localhost:8000/
 </html>
 
 
-http://localhost:8000/gvds
---------------------------
+http://localhost:8000/chromosomeLength
+--------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Final Project</title>
+    <title>Final project response</title>
   </head>
-  <body style="background-color: red;">
-    <h1>ERROR</h1>
-    <h3>Not found!</h3>
-    <br>
-    <br>
+  <body>
     <a href="/">[Home page]</a>
-  </body>
-</html>
+    <br>
+</body>Please, introduce a specie and a chromosome.</html>
 
 
