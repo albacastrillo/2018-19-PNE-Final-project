@@ -45,7 +45,16 @@ http://localhost:8000/geneCalc?gene=FRAT1
 
 http://localhost:8000/geneList?chromo=1&start=0&end=30000
 ---------------------------------------------------------
-CORREGIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+<h2>Genes located in the chromosome 1 </h2><ul><li>DDX11L1</li><li>WASH7P</li><li>MIR6859-1</li><li>MIR1302-2HG</li></ul></body></html>
 
 
 * Testing other examples*
@@ -203,6 +212,36 @@ http://localhost:8000/geneList?chromo=tryg&start=&end=
 ONLY ONE OF THE THREE INPUTS OF geneList EMPTY:
 http://localhost:8000/geneList?chromo=&start=-1&end=3
 ------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a new chromosome, a start and an end.</html>
+
+
+IN geneList THERE ARE NO GENES BETWEEN THE START AND END INTRODUCED:
+http://localhost:8000/geneList?chromo=X&start=1&end=5
+-----------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body> There are no genes in this position in the introduced chromosome.</html>
+
+
+IN geneList THE CHROMOSOME IS WRONG:
+http://localhost:8000/geneList?chromo=DFGHJ&start=1&end=5
+---------------------------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
