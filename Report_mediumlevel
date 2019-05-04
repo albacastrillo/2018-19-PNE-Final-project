@@ -45,6 +45,14 @@ http://localhost:8000/geneCalc?gene=FRAT1
 
 http://localhost:8000/geneList?chromo=1&start=0&end=30000
 ---------------------------------------------------------
+CORREGIR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+* Testing other examples*
+
+GENE OF geneSeq WRONG:
+http://localhost:8000/geneSeq?gene=ASDFG
+----------------------------------------
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,7 +62,176 @@ http://localhost:8000/geneList?chromo=1&start=0&end=30000
   <body>
     <a href="/">[Home page]</a>
     <br>
-<h2>Genes located in the chromosome 1 </h2><ul><li>DDX11L1</li><li>WASH7P</li><li>MIR6859-1</li><li>MIR1302-2HG</li></ul></body></html>
+</body>This gene is incorrect. Please, introduce a new one.</html>
+
+
+GENE OF geneSeq EMPTY:
+http://localhost:8000/geneSeq?gene=
+-----------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+geneSeq ENDPOINT WITH NOTHING ELSE:
+http://localhost:8000/geneSeq
+-----------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+GENE OF geneInfo WRONG:
+http://localhost:8000/geneInfo?gene=frghj
+-----------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>This gene is incorrect. Please, introduce a new one.</html>
+
+
+GENE OF geneInfo EMPTY:
+http://localhost:8000/geneInfo?gene=
+------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+geneInfo ENDPOINT WITH NOTHING ELSE:
+http://localhost:8000/geneInfo
+------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+GENE OF geneCalc WRONG:
+http://localhost:8000/geneCalc?gene=esrtfgh
+-------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>This gene is incorrect. Please, introduce a new one.</html>
+
+
+GENE OF geneCalc EMPTY:
+localhost:8000/geneCalc?gene=
+-----------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+geneCalc ENDPOINT WITH NOTHING ELSE:
+http://localhost:8000/geneCalc
+------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a gene.</html>
+
+
+CHROMOSOME, START OR END OF geneList EMPTY:
+http://localhost:8000/geneList?chromo=tryg&start=&end=
+------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a new chromosome, a start and an end.</html>
+
+
+ONLY ONE OF THE THREE INPUTS OF geneList EMPTY:
+http://localhost:8000/geneList?chromo=&start=-1&end=3
+------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>Please, introduce a new chromosome, a start and an end.</html>
+
+
+geneList ENDPOINT WITH NOTHING ELSE:
+http://localhost:8000/geneList
+------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body> Please, introduce a chromosome, a start and an end.</html>
+
+
+
+COLOCAR TAMBIEN LO DEL GENELIST, SUBR EJEMPLO Y TAMBIÉN EL DEL PROFESOR
 
 
 
