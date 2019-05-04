@@ -344,7 +344,7 @@ class Handler(BaseHTTPRequestHandler):
 
 socketserver.TCPServer.allow_reuse_address = True
 
-# Main programe
+# MAIN PROGRAM
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)
     try:
