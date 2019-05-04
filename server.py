@@ -104,7 +104,11 @@ class Handler(BaseHTTPRequestHandler):
             contents = file.read()
             if self.input_value():
                 specie, chromo = self.input_value()
-                if specie and chromo:
+                if self.chromosomeLength(specie, chromo) == "wrong chromo":
+                    contents += "</body>The specie introduced does not contain that chromosome.</html>"
+                elif self.chromosomeLength(specie, chromo) == "wrong specie":
+                    contents += "</body>The specie is wrong. Please, introduce a new one.</html>"
+                elif specie and chromo:
                     contents += "The length of chromosome " + chromo + " of " + specie + " is: "
                     contents += "<strong>" + str(self.chromosomeLength(specie, chromo)) + "</strong>"
                     contents += "</body></html>"
@@ -185,13 +189,16 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 if self.input_value():
                     chromo, start, end = self.list_input()
-                    list_gene = self.geneList(chromo, start, end)
-                    contents += "<h2>Genes located in the chromosome " + chromo + " </h2>"
-                    contents += "<ul>"
-                    for item in list_gene:
-                        contents += "<li>" + item + "</li>"
-                    contents += "</ul>"
-                    contents += "</body></html>"
+                    if self.geneList(chromo, start, end) == "wrong position":
+                        contents += "</body> There are no genes in this position in the introduced chromosome.</html>"
+                    else:
+                        list_gene = self.geneList(chromo, start, end)
+                        contents += "<h2>Genes located in the chromosome " + chromo + " </h2>"
+                        contents += "<ul>"
+                        for item in list_gene:
+                            contents += "<li>" + item + "</li>"
+                        contents += "</ul>"
+                        contents += "</body></html>"
                 else:
                     contents += "</body> Please, introduce a chromosome, a start and an end.</html>"
             except requests.exceptions.HTTPError:
@@ -250,8 +257,8 @@ class Handler(BaseHTTPRequestHandler):
             for item in results:
                 if item['name'] == chromo:
                     return item['length']
-            return "The specie introduced does not contain that chromosome."
-        return "This is an incorrect specie. Please, introduce a new one."
+            return "wrong chromo"
+        return "wrong specie"
 
     def geneSeq(self, gene):
         server = "http://rest.ensembl.org"
@@ -332,10 +339,7 @@ class Handler(BaseHTTPRequestHandler):
                 name = gene['external_name']
                 list_gene.append(name)
             return list_gene
-        else:
-            response = []
-            response.append("There are no genes in this position.")
-            return response
+        return "wrong position"
 
 
 socketserver.TCPServer.allow_reuse_address = True
