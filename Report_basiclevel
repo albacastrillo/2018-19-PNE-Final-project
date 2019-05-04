@@ -160,7 +160,22 @@ http://localhost:8000/chromosomeLength?specie=fgh&chromo=dfghjk
   <body>
     <a href="/">[Home page]</a>
     <br>
-The length of chromosome dfghjk of fgh is: <strong>None</strong></body></html>
+</body>The specie is wrong. Please, introduce a new one.</html>
+
+
+IN chromosomeLength THE CHROMOSOME SELECTED IS NOT IN THE SPECIE:
+http://localhost:8000/chromosomeLength?specie=dog&chromo=p
+----------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Final project response</title>
+  </head>
+  <body>
+    <a href="/">[Home page]</a>
+    <br>
+</body>The specie introduced does not contain that chromosome.</html>
 
 
 chromosomeLength ENDPOINT WITH NOTHING ELSE:
