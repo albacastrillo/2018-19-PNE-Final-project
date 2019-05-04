@@ -18,7 +18,7 @@ class Handler(BaseHTTPRequestHandler):
                     value_1 = enter_1.split("=")[1]
                     value_2 = enter_2.split("=")[1]
 
-                    # When there are two input values
+                    # When there are two input values, in the function chromosomeLength
                     if enter_1.split("=")[0] == "specie":
                         return value_1, value_2
                     elif enter_1.split("=")[0] == "chromo":
@@ -34,8 +34,8 @@ class Handler(BaseHTTPRequestHandler):
         else:
             return False
 
-    # When there are 3 input values we use this function instead of the input_value one because now the "chromo" is in
-    # the first position instead of being in the second, like it was before
+    # When there are 3 input values (in the function geneList) we use this function instead of the input_value one
+    # because now the "chromo" is in the first position instead of being in the second, like it was before
     def list_input(self):
         if self.path.find('?') > 0:
             enter = self.path.split("?")[1]
@@ -85,7 +85,7 @@ class Handler(BaseHTTPRequestHandler):
             if self.input_value():
                 try:
                     karyot = self.karyotype(self.input_value())
-                    contents += "Karyotype of " + self.input_value() + ":<ul>"
+                    contents += "The karyotype of " + self.input_value() + "is:<ul>"
                     if len(karyot) == 0:
                         contents += "<p><strong>There is no karyotype.<strong></p>"
                     else:
@@ -93,8 +93,7 @@ class Handler(BaseHTTPRequestHandler):
                             contents += "<li>" + item + "</li>"
                     contents += "</body></html>"
                 except KeyError:
-                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This is an incorrect specie. Please, " \
-                               "introduce a new one.</html>"
+                    contents += "</body> This is an incorrect specie. Please, introduce a new one.</html>"
             else:
                 contents += "</body>Please, introduce a specie.</html>"
 
@@ -111,22 +110,23 @@ class Handler(BaseHTTPRequestHandler):
                     contents += "</body></html>"
                 else:
                     contents += "</body>Please, introduce both, a specie and a chromosome.</html>"
+            else:
+                contents += "</body>Please, introduce a specie and a chromosome.</html>"
 
         # When we write the endpoint "/genSeq" it opens the Response.html and add the sequence of a given human gene
         elif action == "/geneSeq":
             file = open("Response.html", "r")
             contents = file.read()
             if self.input_value():
-                gene = self.input_value()
-                contents += "Sequence of human gene " + gene + ": "
                 try:
+                    gene = self.input_value()
                     seq = self.geneSeq(gene)
+                    contents += "Sequence of human gene " + gene + ": "
                     contents += "<br><div style=\"overflow-wrap: break-word;\">"
                     contents += "<strong>" + str(seq) + "</strong></div>"
                     contents += "</body></html>"
                 except IndexError:
-                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This gene is incorrect. Please, " \
-                               "introduce a new one.</html>"
+                    contents += "</body>This gene is incorrect. Please, introduce a new one.</html>"
             else:
                 contents += "</body>Please, introduce a gene.</html>"
 
@@ -135,33 +135,32 @@ class Handler(BaseHTTPRequestHandler):
         elif action == "/geneInfo":
             file = open("Response.html", "r")
             contents = file.read()
-            if self.input_value():
-                gene = self.input_value()
-                contents += "<h2>Information about human gene " + gene + ":</h2>"
-                gene_info = self.geneInfo(gene)
-                try:
+            try:
+                if self.input_value():
+                    gene = self.input_value()
+                    gene_info = self.geneInfo(gene)
+                    contents += "<h2>Information about human gene " + gene + ":</h2>"
                     contents += "<p> ID: " + gene_info['id'] + "</p>"
                     contents += "<p> Start: " + gene_info['start'] + "</p>"
                     contents += "<p> End: " + gene_info['end'] + "</p>"
                     contents += "<p> Length: " + gene_info['length'] + "</p>"
                     contents += "<p> Chromosome: " + gene_info['chromo'] + "</p>"
                     contents += "</body></html>"
-                except TypeError:
-                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This gene is incorrect. Please, " \
-                               "introduce a new one.</html>"
-            else:
-                contents += "</body>Please, introduce a gene.</html>"
+                else:
+                    contents += "</body>Please, introduce a gene.</html>"
+            except IndexError:
+                contents += "</body>This gene is incorrect. Please, introduce a new one.</html>"
 
         # When we write the endpoint "/genCalc" it opens the Response.html and add total length and the
         # percentage of all its bases
         elif action == "/geneCalc":
             file = open("Response.html", "r")
             contents = file.read()
-            if self.input_value():
-                gene = self.input_value()
-                contents += "<h2>Information about human gene bases " + gene + " bases:</h2>"
-                bases = self.geneCalc(gene)
-                try:
+            try:
+                if self.input_value():
+                    gene = self.input_value()
+                    bases = self.geneCalc(gene)
+                    contents += "<h2>Information about human gene bases " + gene + " bases:</h2>"
                     contents += "<h4>Number of bases:</h4><ul>"
                     contents += "<li> A: " + bases['base_a'] + "</li>"
                     contents += "<li> C: " + bases['base_c'] + "</li>"
@@ -173,38 +172,37 @@ class Handler(BaseHTTPRequestHandler):
                     contents += "<li> G: " + bases['perc_g'] + "</li>"
                     contents += "<li> T: " + bases['perc_t'] + "</li></ul>"
                     contents += "</body></html>"
-                except TypeError:
-                    contents = "</body> <a href='/'>[Home page]</a> <br><br> This gene is incorrect. Please, " \
-                                                  "introduce a new one.</html>"
-            else:
-                contents += "</body>Please, introduce a gene.</html>"
+                else:
+                    contents += "</body>Please, introduce a gene.</html>"
+            except IndexError:
+                contents += "</body>This gene is incorrect. Please, introduce a new one.</html>"
 
         # When we write the endpoint "/genList" it opens the Response.html and add the names of the genes located
         # in the chromosome "chromo" from the start to end positions
         elif action == "/geneList":
             file = open("Response.html", "r")
             contents = file.read()
-            if self.input_value():
-                print(self.input_value())
-                try:
+            try:
+                if self.input_value():
                     chromo, start, end = self.list_input()
+                    list_gene = self.geneList(chromo, start, end)
                     contents += "<h2>Genes located in the chromosome " + chromo + " </h2>"
-                    names = self.geneList(chromo, start, end)
                     contents += "<ul>"
-                    for item in names:
+                    for item in list_gene:
                         contents += "<li>" + item + "</li>"
                     contents += "</ul>"
                     contents += "</body></html>"
-                except requests.exceptions.HTTPError:
-                    contents = "</body> <a href='/'>[Home page]</a> <br><br> Incorrect. Please, introduce a new " \
-                               "chromosome, start and end.</html>"
+                else:
+                    contents += "</body> Please, introduce a chromosome, a start and an end.</html>"
+            except requests.exceptions.HTTPError:
+                contents += "</body>Please, introduce a new chromosome, a start and an end.</html>"
 
-        # It shows the ERROR page if it is wrong
+        # It shows the ERROR page if the endpoint is incorrect
         else:
             file = open("Error.html", "r")
             contents = file.read()
 
-        self.send_response(200)  # -- Status line: OK!
+        self.send_response(200)  # Status line: OK!
         self.send_header('Content-Type', 'text/html')
         self.send_header('Content-Length', len(str.encode(contents)))
         self.end_headers()
@@ -252,7 +250,8 @@ class Handler(BaseHTTPRequestHandler):
             for item in results:
                 if item['name'] == chromo:
                     return item['length']
-            return "None"
+            return "The specie introduced does not contain that chromosome."
+        return "This is an incorrect specie. Please, introduce a new one."
 
     def geneSeq(self, gene):
         server = "http://rest.ensembl.org"
@@ -327,29 +326,28 @@ class Handler(BaseHTTPRequestHandler):
         if not r.ok:
             r.raise_for_status()
         results = r.json()
-        species_list = []
+        list_gene = []
         if results:
             for gene in results:
                 name = gene['external_name']
-                start = str(gene['start'])
-                end = str(gene['end'])
-                species_list.append(name)
-                species_list.append(start)
-                species_list.append(end)
-        return species_list
+                list_gene.append(name)
+            return list_gene
+        else:
+            response = []
+            response.append("There are no genes in this position.")
+            return response
 
 
 socketserver.TCPServer.allow_reuse_address = True
-# Open the socket server
+
+# Main programe
 with socketserver.TCPServer(("", PORT), Handler) as httpd:
     print("Serving at PORT", PORT)
-    # Main loop: Attend the client. Whenever there is a new
-    # client, the handler is called
     try:
         httpd.serve_forever()
+
     except KeyboardInterrupt:
-        print("")
-        print("Stopped by the user")
+        print("Server stopped by the user")
         httpd.server_close()
 
-print("Server Stopped")
+print("The server is stopped")
