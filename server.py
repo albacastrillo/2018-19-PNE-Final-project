@@ -104,14 +104,17 @@ class Handler(BaseHTTPRequestHandler):
             contents = file.read()
             if self.input_value():
                 specie, chromo = self.input_value()
-                if self.chromosomeLength(specie, chromo) == "wrong chromo":
-                    contents += "</body>The specie introduced does not contain that chromosome.</html>"
-                elif self.chromosomeLength(specie, chromo) == "wrong specie":
-                    contents += "</body>The specie is wrong. Please, introduce a new one.</html>"
+                if not specie or not chromo:
+                    contents += "</body>Please, introduce both, a specie and a chromosome.</html>"
                 elif specie and chromo:
-                    contents += "The length of chromosome " + chromo + " of " + specie + " is: "
-                    contents += "<strong>" + str(self.chromosomeLength(specie, chromo)) + "</strong>"
-                    contents += "</body></html>"
+                    if self.chromosomeLength(specie, chromo) == "wrong chromo":
+                        contents += "</body>The specie introduced does not contain that chromosome.</html>"
+                    elif self.chromosomeLength(specie, chromo) == "wrong specie":
+                        contents += "</body>The specie is wrong. Please, introduce a new one.</html>"
+                    else:
+                        contents += "The length of chromosome " + chromo + " of " + specie + " is: "
+                        contents += "<strong>" + str(self.chromosomeLength(specie, chromo)) + "</strong>"
+                        contents += "</body></html>"
                 else:
                     contents += "</body>Please, introduce both, a specie and a chromosome.</html>"
             else:
